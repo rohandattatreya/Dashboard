@@ -64,10 +64,10 @@ def _generate_dummy_series(series_id: str):
     """Generate realistic dummy time series data."""
     random.seed(hash(series_id) % 2**31)
     info = SERIES_CATALOG.get(series_id)
-    if not info:
+    if not info and series_id != "__GENERIC__":
         return None
 
-    freq = info["frequency"]
+    freq = info["frequency"] if info else "Monthly"
     start = datetime(2000, 1, 1)
     end = datetime(2024, 12, 31)
     records = []
